@@ -114,7 +114,13 @@ names(fuente)[1:5]       # los nombres de las primeras cinco columnas
 la tabla, y por qué constituye un problema para cualquier proceso automatizado?
 
 *Tu respuesta:*
-El archivo contiene filas institucionales y títulos antes de los encabezados reales de la tabla. Esto representa un problema para los procesos automatizados porque R puede interpretar una de esas filas como los nombres de las columnas, dificultando la identificación y el procesamiento correcto de los datos. Por eso, es necesario identificar la fila donde comienzan los encabezados reales antes de continuar con el análisis.
+El archivo contiene filas institucionales y títulos antes de los 
+encabezados reales de la tabla. Esto representa un problema para los 
+procesos automatizados porque R puede interpretar una de esas filas 
+como los nombres de las columnas, dificultando la identificación y el
+procesamiento correcto de los datos. Por eso, es necesario 
+identificar la fila donde comienzan los encabezados reales antes de 
+continuar con el análisis.
 ```{r}
 # TODO 1.2 — Vuelve a leer el archivo saltando las filas decorativas.
 #            Pista: el argumento se llama `skip`. ¿Cuántas filas hay que saltar?
@@ -178,7 +184,18 @@ corresponde?
 
 *Tu respuesta:*
 
-***La decisión no debería tomarla el analista de manera aislada. Aunque el analista puede identificar patrones, proponer reglas y aplicarlas mediante código, corresponde al responsable del negocio o dueño del dato definir qué condiciones debe cumplir un registro para considerarse válido. En este caso, el área de Desarrollo, que administra la base de contactos, debería validar la regla del identificador y acordar sus criterios con el área encargada de utilizar la información. Esto es importante porque una regla técnicamente correcta no necesariamente representa una decisión válida para la organización. La falta de responsables y reglas documentadas evidencia que la Fundación se encuentra en un nivel inicial de madurez en gobernanza de datos.
+***La decisión no debería tomarla el analista de manera aislada. 
+Aunque el analista puede identificar patrones, proponer reglas y 
+aplicarlas mediante código, corresponde al responsable del negocio o 
+dueño del dato definir qué condiciones debe cumplir un registro para 
+considerarse válido. En este caso, el área de Desarrollo, que 
+administra la base de contactos, debería validar la regla del 
+identificador y acordar sus criterios con el área encargada de 
+utilizar la información. Esto es importante porque una regla 
+técnicamente correcta no necesariamente representa una decisión 
+válida para la organización. La falta de responsables y reglas 
+documentadas evidencia que la Fundación se encuentra en un nivel 
+inicial de madurez en gobernanza de datos.
 
 ## Paso 2 · Diagnóstico de calidad
 
@@ -276,11 +293,22 @@ validos |>
 comparten ID pero difieren entre sí. ¿Se resuelven de la misma manera? ¿Cuál de los dos
 **no** puede resolverse con código, y por qué?
 
-*Tu respuesta:*No, los dos problemas no se resuelven de la misma manera. Las filas idénticas pueden identificarse y eliminarse mediante código, siempre que exista una regla que autorice conservar una sola copia, porque contienen exactamente la misma información.
+*Tu respuesta:*No, los dos problemas no se resuelven de la misma 
+manera. Las filas idénticas pueden identificarse y eliminarse 
+mediante código, siempre que exista una regla que autorice conservar 
+una sola copia, porque contienen exactamente la misma información.
 
-En cambio, los registros que comparten un ID, pero tienen diferencias en sus datos, no pueden resolverse únicamente con código. Aunque este permite detectar el conflicto, no puede determinar cuál teléfono o cuál información es la correcta. Para tomar esa decisión es necesario consultar la fuente original y al responsable de los datos.
 
-Por lo tanto, el segundo problema requiere requiere un criterio operativo y la validación directa de la organización. Esto evidencia la importancia de contar con responsables y reglas claras para la gestión de los datos.
+En cambio, los registros que comparten un ID, pero tienen diferencias
+en sus datos, no pueden resolverse únicamente con código. Aunque este permite detectar el conflicto, no puede determinar cuál teléfono o 
+cuál información es la correcta. Para tomar esa decisión es necesario 
+consultar la fuente original y al responsable de los datos.
+
+Por lo tanto, el segundo problema requiere requiere un criterio 
+operativo y la validación directa de la organización. Esto evidencia 
+la importancia de contar con responsables y reglas claras para la 
+gestión de los datos.
+
 
 ### 2.4 Consistencia
 
@@ -304,9 +332,19 @@ el dato, o de la organización?
 
 *Tu respuesta:*
 
-***El problema es principalmente de la organización, porque no existen reglas estandarizadas para registrar la información. Aunque el analista de BI puede identificar y corregir las diferencias de escritura durante el procesamiento de los datos, el problema se origina en la falta de criterios comunes para su captura y almacenamiento.
+***El problema es principalmente de la organización, porque no 
+existen reglas estandarizadas para registrar la información. Aunque 
+el analista de BI puede identificar y corregir las diferencias de 
+escritura durante el procesamiento de los datos, el problema se 
+origina en la falta de criterios comunes para su captura y 
+almacenamiento.
 
-La organización debe establecer un diccionario de datos, definir cómo deben registrarse las ciudades e implementar mecanismos de validación, como listas desplegables en los formularios. De esta manera, se evita que un mismo lugar aparezca escrito de diferentes formas y se mejora la calidad y consistencia de la información.
+La organización debe establecer un diccionario de datos, definir cómo 
+deben registrarse las ciudades e implementar mecanismos de 
+validación, como listas desplegables en los formularios. De esta 
+manera, se evita que un mismo lugar aparezca escrito de diferentes 
+formas y se mejora la calidad y consistencia de la información.
+
 
 ## Paso 3 · Limpieza reproducible
 
@@ -371,13 +409,26 @@ Defiende tu decisión ante una directora que pide «una base limpia para el vier
 *Tu respuesta:*
 **Pregunta 3.2. ¿Eliminaste los registros con ID repetido o los marcaste para revisión?**
 
-Decidí marcar los registros con ID repetido para revisión, en lugar de eliminarlos automáticamente. Aunque se identificaron dos casos de duplicidad, no necesariamente representan la misma situación: puede existir un registro exactamente duplicado o dos registros con el mismo ID, pero con información diferente.
+Decidí marcar los registros con ID repetido para revisión, en lugar 
+de eliminarlos automáticamente. Aunque se identificaron dos casos de 
+duplicidad, no necesariamente representan la misma situación: puede 
+existir un registro exactamente duplicado o dos registros con el 
+mismo ID, pero con información diferente.
 
-Eliminar estos registros sin una validación previa podría ocasionar la pérdida de información válida. Por esta razón, considero que la decisión debe ser revisada y autorizada por la responsable del área de Desarrollo, quien debe contrastar los datos con la fuente original y determinar cuál registro conservar o si corresponde corregir el identificador.
+Eliminar estos registros sin una validación previa podría ocasionar 
+la pérdida de información válida. Por esta razón, considero que la 
+decisión debe ser revisada y autorizada por la responsable del área 
+de Desarrollo, quien debe contrastar los datos con la fuente original 
+y determinar cuál registro conservar o si corresponde corregir el 
+identificador.
 
-Como analista, mi responsabilidad es identificar, documentar y reportar las inconsistencias, no decidir por mi cuenta cuál información representa la realidad.
+Como analista, mi responsabilidad es identificar, documentar y 
+reportar las inconsistencias, no decidir por mi cuenta cuál 
+información representa la realidad.
 
-Por tanto, entregaría una base con los casos identificados y pendientes de validación, acompañada de una recomendación para establecer reglas institucionales de unicidad de los identificadores.
+Por tanto, entregaría una base con los casos identificados y 
+pendientes de validación, acompañada de una recomendación para 
+establecer reglas institucionales de unicidad de los identificadores.
 
 ```{r}
 # TODO 3.3 — Construye una tabla ANTES vs DESPUÉS de al menos cuatro indicadores.
@@ -392,9 +443,20 @@ indica eso sobre lo que la limpieza **puede** y **no puede** corregir?
 
 *Tu respuesta:*
 
-***El porcentaje de correos válidos se mantuvo en 87,2 % antes y después de la limpieza, por lo que no presentó ningún aumento. Esto indica que la limpieza permitió estandarizar aspectos de formato, como las mayúsculas y los espacios, pero no logró convertir en válidos los correos que tenían errores en su estructura o información incompleta.
+***El porcentaje de correos válidos se mantuvo en 87,2 % antes y 
+después de la limpieza, por lo que no presentó ningún aumento. Esto 
+indica que la limpieza permitió estandarizar aspectos de formato, 
+como las mayúsculas y los espacios, pero no logró convertir en 
+válidos los correos que tenían errores en su estructura o información
+incompleta.
 
-Por tanto, la limpieza de datos puede corregir inconsistencias de presentación y formato cuando existe información suficiente para hacerlo, pero no puede recuperar datos faltantes, verificar si una dirección de correo realmente existe ni garantizar que la información sea correcta. Para solucionar estos problemas se requiere consultar las fuentes originales y establecer mecanismos de validación desde el momento en que se capturan los datos.
+Por tanto, la limpieza de datos puede corregir inconsistencias de 
+presentación y formato cuando existe información suficiente para 
+hacerlo, pero no puede recuperar datos faltantes, verificar si una 
+dirección de correo realmente existe ni garantizar que la información
+sea correcta. Para solucionar estos problemas se requiere consultar 
+las fuentes originales y establecer mecanismos de validación desde el
+momento en que se capturan los datos.
 
 ## Paso 4 · Diccionario de datos
 
@@ -416,11 +478,24 @@ revela eso sobre el estado de gobierno de esta organización?
 
 *Tu respuesta:*
 
-Las columnas que no puedo completar por mi cuenta son principalmente descripción, dominio permitido y responsable, porque requieren conocimiento de los procesos de la Fundación y decisiones de las áreas encargadas de los datos.
+Las columnas que no puedo completar por mi cuenta son principalmente 
+descripción, dominio permitido y responsable, porque requieren 
+conocimiento de los procesos de la Fundación y decisiones de las 
+áreas encargadas de los datos.
 
-Como analista, puedo proponer definiciones y criterios técnicos a partir de la estructura de la información, pero no tengo autoridad para establecer unilateralmente qué valores acepta la organización, cuál es el significado institucional de cada campo o qué área debe responder por su gestión. Estas decisiones deben ser validadas por los responsables del negocio.
+Como analista, puedo proponer definiciones y criterios técnicos 
+partir de la estructura de la información, pero no tengo autoridad 
+para establecer unilateralmente qué valores acepta la organización, 
+cuál es el significado institucional de cada campo o qué área debe 
+responder por su gestión. Estas decisiones deben ser validadas por 
+los responsables del negocio.
 
-Esto revela que la Fundación se encuentra en un nivel 1 de madurez de gobierno de datos (inicial o ad hoc), ya que todavía no cuenta con definiciones, reglas y responsabilidades formalmente establecidas. Por tanto, la gestión de la información depende en gran medida de decisiones individuales y no de criterios institucionales compartidos.
+Esto revela que la Fundación se encuentra en un nivel 1 de madurez de
+gobierno de datos (inicial o ad hoc), ya que todavía no cuenta con 
+definiciones, reglas y responsabilidades formalmente establecidas. 
+Por tanto, la gestión de la información depende en gran medida de 
+decisiones individuales y no de criterios institucionales 
+compartidos.
 
 
 ## Paso 5 · Plan de gobierno mínimo viable
